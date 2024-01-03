@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vishvakarmans</title>
+    <link rel="stylesheet" href="style.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="shortcut icon" href="images/logo.png" type="image/x-icon">
+    <script type="module" src="firebase_app.js">
+    </script>
+    <style>
+        .main {
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            -webkit-box-pack: center;
+            -ms-flex-pack: center;
+            justify-content: center;
+            -webkit-box-align: center;
+            -ms-flex-align: center;
+            align-items: center;
+            -webkit-box-orient: vertical;
+            -webkit-box-direction: normal;
+            -ms-flex-direction: column;
+            flex-direction: column;
+            color: white;
+            font-size: 18px;
+            width: 100vw;
+        }
+
+        .comparisonTable {
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            -webkit-box-orient: horizontal;
+            -webkit-box-direction: normal;
+            -ms-flex-direction: row;
+            flex-direction: row;
+            width: 95%;
+            -webkit-box-pack: space-evenly;
+            -ms-flex-pack: space-evenly;
+            justify-content: space-evenly;
+            -webkit-box-align: center;
+            -ms-flex-align: center;
+            align-items: center;
+        }
+
+        .orgImageDiv {
+            height: -webkit-fit-content;
+            height: -moz-fit-content;
+            height: fit-content;
+            width: 100%;
+            overflow: hidden;
+        }
+
+        .orgNameDiv,
+        .orgImageDiv,
+        .orgImagesDiv,
+        .orgAddressDiv,
+        .orgRatingDiv,
+        .orgEmbedDiv {
+            border: 0.3px solid white;
+            -webkit-box-align: center;
+            -ms-flex-align: center;
+            align-items: center;
+            padding: 5px;
+            text-align: center;
+        }
+
+        .orgBanner {
+            width: 50%;
+            height: 100%;
+            aspect-ratio: 4/3;
+        }
+
+        .orgNameDiv {
+            padding: 5px 0px;
+            color: #ff7f00;
+            font-size: 28px;
+            font-weight: 600;
+        }
+
+        .orgRating {
+            color: #ff7f00;
+        }
+
+        .headings {
+            color: #ff7f00;
+            font-size: 22px;
+            font-weight: 500;
+        }
+
+        .orgDetails {
+            width: 50%;
+        }
+
+        .slider-container {
+            position: relative;
+            height: -webkit-max-content;
+            height: -moz-max-content;
+            height: max-content;
+            width: 60%;
+            margin: auto;
+        }
+
+        .slider {
+            overflow: hidden;
+        }
+
+        .slides {
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            -webkit-transition: -webkit-transform 0.5s ease-in-out;
+            transition: -webkit-transform 0.5s ease-in-out;
+            -o-transition: transform 0.5s ease-in-out;
+            transition: transform 0.5s ease-in-out;
+            transition: transform 0.5s ease-in-out, -webkit-transform 0.5s ease-in-out;
+        }
+
+        .slides img {
+            width: 100%;
+            aspect-ratio: 4/3;
+            -o-object-fit: cover;
+            object-fit: cover;
+        }
+
+        button.prev,
+        button.next {
+            position: absolute;
+            top: 50%;
+            -webkit-transform: translateY(-50%);
+            -ms-transform: translateY(-50%);
+            transform: translateY(-50%);
+            background: #000000;
+            color: #ff7f00;
+            border: none;
+            cursor: pointer;
+            font-size: 20px;
+        }
+
+        .orgSampleVideo iframe {
+            width: 80%;
+            aspect-ratio: 16 /9;
+        }
+
+        button.prev {
+            left: 10px;
+        }
+
+        button.next {
+            right: 10px;
+        }
+
+        @media (max-width:750px) {
+            .orgBanner{
+                width: 85%;
+                aspect-ratio: 16/9;
+            }
+            .comparisonTable {
+                -webkit-box-orient: vertical;
+                -webkit-box-direction: normal;
+                -ms-flex-direction: column;
+                flex-direction: column;
+            }
+
+            .orgDetails {
+                padding: 10px 0;
+                width: 100%;
+            }
+
+            .slider-container img {
+                aspect-ratio: 16/9;
+            }
+            .orgEmbedDiv iframe{
+                width: 90%  ;
+            }
+            .slider-container {
+                width: 85%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header class="header">
+        <a href="index.html" class="logo"><img class="logo-img" src="images/logo.png" alt="Vishvakarmans Logo Png">
+            <h1>Vishvakarmans</h1>
+        </a>
+        <i class='bx bx-menu' id="menu-icon"></i>
+        <nav class="navbar">
+            <a href="index.html" class="btn navBtn">Home</a>
+            <a href="index.html#selection" class="btn navBtn">Products</a>
+            <a href="form.html" class="btn navBtn">Collab with Us</a>
+            <a href="index.html#aboutUs" class="btn navBtn">About Us</a>
+            <a href="#contact" class="btn navBtn">Contact Us</a>
+            <a href="" id="logout" class="btn navBtn">LogOut</a>
+        </nav>
+    </header>
+    <div class="main">
+        <p class="selectText" id="selectText" style="font-family: 'Josefin Sans'; font-size: 30px;">Compare:</p>
+        <div class="comparisonTable" id="compareTable">
+            <div class="orgDetails">
+                <div class="orgNameDiv">
+                    <p class="orgName" id="orgName1"></p>
+                </div>
+                <div class="orgImageDiv"><img class="orgBanner" src="" alt="Organisations Main Banner"
+                        id="orgBanner1"></div>
+                <div class="orgAddressDiv">
+                    <span class="headings">Address:</span>
+                    <p class="orgAddress" id="orgAddress1"></p>
+                </div>
+                <div class="orgRatingDiv">
+                    <span class="headings" style="color: white;">Rating:</span>
+                    <p class="orgRating" id="orgRating1"></p>
+                </div>
+                <div class="orgImagesDiv" id="orgImagesDiv1">
+                    <span class="headings">Sample Pictures:</span>
+                    <div class="slider-container">
+                        <div class="slider slides" id="slider1">
+                        </div>
+                        <button class="prev" id="prev1"><i class='bx bx-chevron-left'></i></button>
+                        <button class="next" id="next1"><i class='bx bx-chevron-right'></i></button>
+                    </div>
+                </div>
+                <div class="orgEmbedDiv">
+                    <span class="headings">Sample Video:</span>
+                    <div class="orgSampleVideo">
+                        <iframe src="" frameborder="0" id="embedVideo1"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                            allowfullscreen></iframe>
+                    </div>
+                </div>
+            </div>
+
+            <div class="orgDetails">
+                <div class="orgNameDiv">
+                    <p class="orgName" id="orgName2"></p>
+                </div>
+                <div class="orgImageDiv"><img class="orgBanner" src="" alt="Organisations Main Banner"
+                        id="orgBanner2"></div>
+                <div class="orgAddressDiv">
+                    <span class="headings">Address:</span>
+                    <p class="orgAddress" id="orgAddress2"></p>
+                </div>
+                <div class="orgRatingDiv">
+                    <span class="headings"style="color: white;">Rating:</span>
+                    <p class="orgRating" id="orgRating2"></p>
+                </div>
+                <div class="orgImagesDiv" id="orgImagesDiv2">
+                    <span class="headings">Sample Pictures:</span>
+                    <div class="slider-container">
+                        <div class="slider slides" id="slider2">
+
+                        </div>
+                        <button class="prev" id="prev2"><i class='bx bx-chevron-left'></i></button>
+                        <button class="next" id="next2"><i class='bx bx-chevron-right'></i></button>
+                    </div>
+                </div>
+                <div class="orgEmbedDiv">
+                    <span class="headings">Sample Video:</span>
+                    <div class="orgSampleVideo">
+                        <iframe src="" frameborder="0" id="embedVideo2"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                            allowfullscreen></iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="error404" class="hide error">
+            <h2>404 - Page Not Found</h2>
+            <p>The requested content could not be found.</p>
+        </div>
+    </div>
+    <hr>
+
+    <footer id="contact">
+        <div class="footer-up">
+            <a href="index.html" class="logo"><img class="logo-img" src="images/logo.png" alt="Vishvakarmans Logo Png">
+                <h1>Vishvakarmans</h1>
+            </a>
+            <a href="index.html" target="_blank"><img class="bn45"
+                    src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/78/Google_Play_Store_badge_EN.svg/2560px-Google_Play_Store_badge_EN.svg.png"
+                    alt="Play Store" /></a>
+            <div class="footer-row">
+                <div class="footer-col">
+                    <p class="footerHeads">Contact Us</p>
+                    <p class="footercontact">
+                                      <a href="https://maps.app.goo.gl/fMxyvrS6QgdNq2sc9" target="_blank" style="text-decoration: none; color: white;"><i class='bx bx-current-location'></i> Google Maps</a>
+
+                    </p>
+                </div>
+                <div class="footer-col">
+                    <p class="footerHeads">Services</p>
+                    <ul>
+                        <li><a href="cities.html?category=interior">Interior Designers</a></li>
+                        <li><a href="cities.html?category=commercial">Commercial Designers</a></li>
+                        <!-- <li><a href="">Eventos</a></li> -->
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <p class="footerHeads">Contact Form</p>
+                    <form method="POST" action="" class="contact-form" id="registrationform" clear;>
+                        <input class="inputClass" type="email" name="email" id="email" placeholder="Email">
+                        <textarea name="textarea" id="textarea" cols="30" rows="3"
+                            placeholder="Write your problem in brief."></textarea>
+                        <button type="submit" contactForm(event)>Submit</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <hr width="100%" color="darkgrey">
+        <div class="footer-down">
+            <div class="socialmedia"><a href="https://www.instagram.com/vishvakarmans/" target="_blank" class="insta white "><i
+                        class="bx bxl-instagram insta fs-1 px-2"></i></a>
+                                <a href="https://www.youtube.com/@Vishvakarmans" target="_blank" class="ytube white "><i class="bx bxl-youtube fs-1  px-2"></i></a>
+
+                <a href="https://twitter.com/vishvakarmans" target="_blank" class="twitter white"><i class="bx bxl-twitter fs-1  px-2"></i></a>
+
+                <a href="https://www.linkedin.com/in/vishvakarmans/" target="_blank" class="linkdin white"><i class="bx bxl-linkedin fs-1 px-2"></i></a>
+                <a href="mailto:vishvakarmans55@gmail.com" target="_blank" class="mail white"><i class="bx bx-envelope fs-1 px-2"></i></a>
+            </div>
+            <p class="copyright">Vishvakarmans &copy; 2023</p>
+        </div>
+        </div>
+    </footer>
+    <script src="script.js"></script>
+    <script type="module">
+        import { app } from "./firebase_app.js";
+        import { getDatabase, ref, get } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-database.js";
+        const database = getDatabase(app);
+        const urlParams = new URLSearchParams(window.location.search);
+        const category = urlParams.get('category');
+        const city = urlParams.get('city');
+        const designerId1 = urlParams.get('designerId1');
+        const designerId2 = urlParams.get('designerId2');
+        const designerName1 = urlParams.get('designerName1');
+        const designerName2 = urlParams.get('designerName2');
+        let rawvideo1;
+        let rawvideo2;
+        let sampleImages1 = [];
+        let sampleImages2 = [];
+        function convertToEmbedUrl(fullUrl) {
+            const url = new URL(fullUrl);
+            const pathname = url.pathname;
+
+            let videoId;
+
+            if (pathname.startsWith('/embed/')) {
+                videoId = pathname.split('/').pop();
+            } else if (pathname === '/watch') {
+                const searchParams = new URLSearchParams(url.search);
+                videoId = searchParams.get('v');
+            } else {
+                videoId = pathname.split('/').pop();
+            }
+
+            const embedUrl = `https://www.youtube.com/embed/${videoId}`;
+            return embedUrl;
+        }
+        if (category || city || designerId1 || designerId2 || designerName1 || designerName2) {
+            let productRef1 = ref(database, `data/${category}-designers/${city}/${designerId1}`);
+            fetchData1(productRef1);
+            let productRef2 = ref(database, `data/${category}-designers/${city}/${designerId2}`);
+            fetchData2(productRef2);
+            function fetchData1(productRef1) {
+                get(productRef1).then((snapshot) => {
+                    if (snapshot.exists()) {
+                        const product = snapshot.val();
+                        document.getElementById('orgName2').textContent = product.orgName;
+                        document.getElementById('orgBanner2').src = product.urlImg;
+                        document.getElementById('orgBanner2').alt = product.orgName;
+                        document.getElementById('orgAddress2').textContent = product.address;
+                        rawvideo2 = convertToEmbedUrl(product.sampleVideo1);
+                        document.getElementById('embedVideo2').src = rawvideo2;
+                        sampleImages1 = product.bestImages;
+                        generateImageSlides(sampleImages1, 1);
+
+                        const ratingsDiv = document.getElementById('orgRating2');
+                        const ratingValue = product.rating;
+                        for (let i = 0; i < Math.floor(ratingValue); i++) {
+                            const starIcon = document.createElement('i');
+                            starIcon.classList.add('bx', 'bxs-star');
+                            ratingsDiv.appendChild(starIcon);
+                        }
+                        if (ratingValue % 1 !== 0) {
+                            const halfStarIcon = document.createElement('i');
+                            halfStarIcon.classList.add('bx', 'bxs-star-half');
+                            ratingsDiv.appendChild(halfStarIcon);
+                        }
+                    } else {
+                        const main = document.querySelector("#compareTable"); main.classList.add('hide'); const error404 = document.getElementById('error404'); error404.classList.remove('hide');
+                        console.error(`Product not found`);
+                    }
+                }).catch((error) => {
+                    const main = document.querySelector("#compareTable"); main.classList.add('hide'); const error404 = document.getElementById('error404'); error404.classList.remove('hide'); console.error(`Error
+            fetching product:`, error);
+                });
+            }
+            function fetchData2(productRef2) {
+                get(productRef2).then((snapshot) => {
+                    if (snapshot.exists()) {
+                        const product = snapshot.val();
+                        document.getElementById('orgName1').textContent = product.orgName;
+                        document.getElementById('orgBanner1').src = product.urlImg;
+                        document.getElementById('orgBanner1').alt = product.orgName;
+                        document.getElementById('orgAddress1').textContent = product.address;
+                        rawvideo1 = convertToEmbedUrl(product.sampleVideo1);
+                        document.getElementById('embedVideo1').src = rawvideo1;
+                        sampleImages2 = product.bestImages;
+                        generateImageSlides(sampleImages2, 2);
+
+                        const ratingsDiv = document.getElementById('orgRating1');
+                        const ratingValue = product.rating;
+                        for (let i = 0; i < Math.floor(ratingValue); i++) {
+                            const starIcon = document.createElement('i');
+                            starIcon.classList.add('bx', 'bxs-star');
+                            ratingsDiv.appendChild(starIcon);
+                        }
+                        if (ratingValue % 1 !== 0) {
+                            const halfStarIcon = document.createElement('i');
+                            halfStarIcon.classList.add('bx', 'bxs-star-half');
+                            ratingsDiv.appendChild(halfStarIcon);
+                        }
+                    } else {
+                        const main = document.querySelector("#compareTable"); main.classList.add('hide'); const error404 = document.getElementById('error404'); error404.classList.remove('hide');
+                        console.error(`Product not found`);
+                    }
+                }).catch((error) => {
+                    const main = document.querySelector("#compareTable"); main.classList.add('hide'); const error404 = document.getElementById('error404'); error404.classList.remove('hide'); console.error(`Error
+            fetching product:`, error);
+                });
+            }
+
+            function generateImageSlides(images, sliderId) {
+                const slider = document.getElementById(`slider${sliderId}`);
+                images.forEach(image => {
+                    const img = document.createElement('img');
+                    img.src = image;
+                    img.alt = 'Product Image';
+                    slider.appendChild(img);
+                });
+            }
+
+
+            let slideIndex1 = 0;
+            let slideIndex2 = 0;
+
+            function showSlides(sliderId, n) {
+                const slides = document.getElementById(`slider${sliderId}`).querySelectorAll('img');
+                if (n >= slides.length) { n = 0; }
+                if (n < 0) { n = slides.length - 1; }
+                for (let i = 0; i < slides.length; i++) {
+                    slides[i].style.display = 'none';
+                }
+                slides[n].style.display = 'block';
+            }
+            const prevButton1 = document.querySelector('#prev1');
+            const nextButton1 = document.querySelector('#next1');
+            prevButton1.addEventListener('click', () => prevSlide(1));
+            nextButton1.addEventListener('click', () => nextSlide(1));
+            const prevButton2 = document.querySelector('#prev2');
+            const nextButton2 = document.querySelector('#next2');
+            prevButton2.addEventListener('click', () => prevSlide(2));
+            nextButton2.addEventListener('click', () => nextSlide(2));
+            setInterval(() => {
+                nextSlide(1);
+                nextSlide(2);
+               
+            }, 2000);
+            function prevSlide(sliderId) {
+                if (sliderId === 1) {
+                    slideIndex1 = (slideIndex1 - 1 + sampleImages1.length) % sampleImages1.length;
+                    showSlides(1, slideIndex1);
+                } else if (sliderId === 2) {
+                    slideIndex2 = (slideIndex2 - 1 + sampleImages2.length) % sampleImages2.length;
+                    showSlides(2, slideIndex2);
+                }
+            }
+
+            function nextSlide(sliderId) {
+                if (sliderId === 1) {
+                    slideIndex1 = (slideIndex1 + 1) % sampleImages1.length;
+                    showSlides(1, slideIndex1);
+                } else if (sliderId === 2) {
+                    slideIndex2 = (slideIndex2 + 1) % sampleImages2.length;
+                    showSlides(2, slideIndex2);
+                }
+            }
+
+        } else {
+            const error404 = document.getElementById('error404'); error404.classList.remove('hide'); const compareTable = document.getElementById('compareTable'); const selectText = document.getElementById('selectText');
+            selectText.classList.add('hide'); compareTable.classList.add('hide');
+
+        }
+    </script>
+</body>
+
+</html>

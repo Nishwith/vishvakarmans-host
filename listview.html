@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vishvakarmans</title>
+    <link rel="shortcut icon" href="images/logo.png" type="image/x-icon">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="style.css">
+    <script type="module" src="firebase_app.js">
+    </script>
+    <style>
+             .main {
+            margin: 15px 0px;
+        }
+
+        .products-view {
+            margin: 30px;
+            display: -ms-grid;
+            display: grid;
+            -ms-grid-rows: 1fr 10px 1fr 10px 1fr;
+            grid-template-rows: repeat(3, 1fr);
+            -ms-grid-columns: 1fr 10px 1fr 10px 1fr;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+        }
+
+        .products-view>*:nth-child(1) {
+            -ms-grid-row: 1;
+            -ms-grid-column: 1;
+        }
+
+        .products-view>*:nth-child(2) {
+            -ms-grid-row: 1;
+            -ms-grid-column: 3;
+        }
+
+        .products-view>*:nth-child(3) {
+            -ms-grid-row: 1;
+            -ms-grid-column: 5;
+        }
+
+        .products-view>*:nth-child(4) {
+            -ms-grid-row: 3;
+            -ms-grid-column: 1;
+        }
+
+        .products-view>*:nth-child(5) {
+            -ms-grid-row: 3;
+            -ms-grid-column: 3;
+        }
+
+        .products-view>*:nth-child(6) {
+            -ms-grid-row: 3;
+            -ms-grid-column: 5;
+        }
+
+        .products-view>*:nth-child(7) {
+            -ms-grid-row: 5;
+            -ms-grid-column: 1;
+        }
+
+        .products-view>*:nth-child(8) {
+            -ms-grid-row: 5;
+            -ms-grid-column: 3;
+        }
+
+        .products-view>*:nth-child(9) {
+            -ms-grid-row: 5;
+            -ms-grid-column: 5;
+        }
+
+        .products-view .products .product-card {
+            cursor: pointer;
+            margin: 15px 10px;
+            aspect-ratio: 10 / 6;
+            position: relative;
+            overflow: hidden;
+            border-radius: 16px;
+        }
+
+        .products .product-card:hover .sample-images {
+            z-index: 2;
+        }
+
+        .products .product-card:hover img {
+            scale: 1.15;
+        }
+
+        .products-view .products:hover .content {
+            color: #000 !important;
+            text-shadow: #fff 2px 2px;
+        }
+
+        .products-view .products .sample-images .sample-img:hover {
+            color: #000;
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            -webkit-box-orient: vertical;
+            -webkit-box-direction: normal;
+            -ms-flex-direction: column;
+            flex-direction: column;
+            -webkit-box-shadow: #000 2px 2px;
+            box-shadow: #000 2px 2px;
+            background: #fff;
+        }
+
+        .products-view .products .sample-images .sample-img {
+            padding: 2px;
+            -webkit-box-shadow: #ffffff 2px 2px;
+            box-shadow: #ffffff 2px 2px;
+            width: -webkit-max-content;
+            width: -moz-max-content;
+            width: max-content;
+            background: #0000006c;
+            border-radius: 0px 16px 0px 16px;
+            margin-top: 2px;
+            color: #fff;
+            font-size: 16px;
+        }
+
+        .products-view .products .sample-images {
+            padding: 5px;
+            -webkit-transition: all 0.3s ease-in-out;
+            -o-transition: all 0.3s ease-in-out;
+            transition: all 0.3s ease-in-out;
+            position: absolute;
+            width: -webkit-fit-content;
+            width: -moz-fit-content;
+            width: fit-content;
+            height: -webkit-fit-content;
+            height: -moz-fit-content;
+            height: fit-content;
+        }
+
+        .products-view .products .content {
+            border-radius: 16px;
+            text-shadow: #000 -2px -2px;
+            bottom: 0;
+            right: 0;
+            position: absolute;
+            padding-right: 10px;
+            padding-bottom: 5px;
+            font-size: 24px;
+            text-align: end;
+            font-weight: 800;
+            color: #fff;
+            z-index: 1;
+        }
+
+        .products-view .products img {
+            border-radius: 16px;
+            width: 100%;
+            height: 100%;
+            -o-object-fit: fill;
+            object-fit: fill;
+            display: block;
+            -webkit-transition: all 0.5s ease-in-out;
+            -o-transition: all 0.5s ease-in-out;
+            transition: all 0.5s ease-in-out;
+            z-index: 2;
+        }
+
+        .header {
+            border-bottom: 1px solid white;
+        }
+
+        @media (max-width:1100px) {
+            .products-view .products .content {
+                font-size: 20px;
+            }
+
+            .products-view .products .content:hover {
+                font-size: 21px;
+            }
+        }
+
+        @media (max-width:450px) {
+            .products-view {
+                margin: 10px !important;
+            }
+        }
+
+        @media (max-width:600px) {
+            .products-view {
+                -ms-grid-columns: 1fr !important;
+                grid-template-columns: 1fr !important;
+                margin: 18px;
+            }
+
+            .products-view .products .product-card {
+                aspect-ratio: 10 / 6;
+                margin: 10px 0px !important;
+            }
+        }
+
+        @media (max-width:870px) {
+            .products-view .products .content {
+                font-size: 25px !important;
+            }
+
+            .products-view .products .content:hover {
+                font-size: 26px !important;
+            }
+
+            .products-view {
+                -ms-grid-columns: 1fr 8px 1fr;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 8px;
+            }
+        }
+
+        @media (max-width:960px) {
+            .products-view .products .content {
+                font-size: 18px;
+            }
+
+            .products-view .products .content:hover {
+                font-size: 19px;
+            }
+        }
+
+        .loader {
+            border: 4px solid rgba(255, 255, 255, 0.1);
+            border-left: 4px solid #ffffff;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            -webkit-animation: spin 1s linear infinite;
+            animation: spin 1s linear infinite;
+            margin: 25vh auto;
+        }
+
+        @-webkit-keyframes spin {
+            0% {
+                -webkit-transform: rotate(0deg);
+                transform: rotate(0deg);
+            }
+
+            100% {
+                -webkit-transform: rotate(360deg);
+                transform: rotate(360deg);
+            }
+        }
+
+        @keyframes spin {
+            0% {
+                -webkit-transform: rotate(0deg);
+                transform: rotate(0deg);
+            }
+
+            100% {
+                -webkit-transform: rotate(360deg);
+                transform: rotate(360deg);
+            }
+        }
+
+        .loading {
+            display: block;
+        }
+
+        .compare-button:hover {
+            background: #ff7f00;
+            color: #001c30;
+            -webkit-box-shadow: #000 -2px -2px;
+            box-shadow: #000 -2px -2px;
+        }
+
+        .compare-button {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 99;
+            background: #001c30;
+            padding: 10px;
+            color: #ff7f00;
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            -webkit-box-pack: center;
+            -ms-flex-pack: center;
+            justify-content: center;
+            gap: 2px;
+            -webkit-box-align: center;
+            -ms-flex-align: center;
+            align-items: center;
+            font-size: 20px;
+            border-radius: 16px;
+            -webkit-box-shadow: #fff 2px 2px;
+            box-shadow: #fff 2px 2px;
+            cursor: pointer;
+            -webkit-transition: 0.3s all ease-in-out;
+            -o-transition: 0.3s all ease-in-out;
+            transition: 0.3s all ease-in-out;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="compare-button" onclick="compareDesigners()"><i class='bx bx-border-all'></i> Compare</div>
+    <header class="header">
+        <a href="index.html" class="logo"><img class="logo-img" src="images/logo.png" alt="">
+            <h1>Vishvakarmans</h1>
+        </a>
+        <i class='bx bx-menu' id="menu-icon"></i>
+        <nav class="navbar">
+            <a href="index.html" class="btn navBtn">Home</a>
+            <a href="index.html#selection" class="btn navBtn">Products</a>
+            <a href="form.html" class="btn navBtn">Collab with Us</a>
+            <a href="index.html#aboutUs" class="btn navBtn">About Us</a>
+            <a href="#contact" class="btn navBtn">Contact Us</a>
+            <a href="" id="logout" class="btn navBtn">LogOut</a>
+
+        </nav>
+    </header>
+    <div class="main">
+        <p class="selectText" id="selectText" style="font-family: 'Josefin Sans'; font-size: 30px;"><span>Select the
+                Organisations:</span></p>
+        <div id="loader" class="loader"></div>
+        <div class="products-view hide" id="productsView">
+        </div>
+        <div id="error404" class="hide error">
+            <h2>404 - Page Not Found</h2>
+            <p>The requested content could not be found.</p>
+        </div>
+    </div>
+    <hr>
+    <div class="footer-bg">
+        <div class="container">
+            <p class="content">Find the Best with the</p>
+            <div class="title"><img class="logo-img" src="images/white-logo.png" alt="">
+                <h1>ishvakarmans</h1>
+            </div>
+        </div>
+    </div>
+    <div class="numbers-view">
+        <div class="title">Vishvakarmans in Numbers</div>
+        <div class="numbers-flex">
+            <div class="numbers-flex-content">
+                <div class="content-title"><i class='bx bx-infinite'></i></div>
+                <div class="content-content">Happy customers</div>
+            </div>
+            <div class="numbers-flex-content">
+                <div class="content-title"><i class='bx bx-infinite'></i></div>
+                <div class="content-content">Interior Designers</div>
+            </div>
+            <div class="numbers-flex-content">
+                <div class="content-title"><i class='bx bx-infinite'></i></div>
+                <div class="content-content">Commercial Designers</div>
+            </div>
+            <div class="numbers-flex-content">
+                <div class="content-title"><i class='bx bx-infinite'></i></div>
+                <div class="content-content">Cities</div>
+            </div>
+        </div>
+    </div>
+    <footer id="contact">
+        <div class="footer-up">
+            <a href="index.html" class="logo"><img class="logo-img" src="images/logo.png" alt="">
+                <h1>Vishvakarmans</h1>
+            </a>
+            <a href="index.html" target="_blank"><img class="bn45"
+                    src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/78/Google_Play_Store_badge_EN.svg/2560px-Google_Play_Store_badge_EN.svg.png"
+                    alt="bn45" /></a>
+            <div class="footer-row">
+                <div class="footer-col">
+                    <p class="footerHeads">Contact Us</p>
+                    <p class="footercontact">
+                                      <a href="https://maps.app.goo.gl/fMxyvrS6QgdNq2sc9" target="_blank" style="text-decoration: none; color: white;"><i class='bx bx-current-location'></i> Google Maps</a>
+
+                    </p>
+                </div>
+                <div class="footer-col">
+                    <p class="footerHeads">Services</p>
+                    <ul>
+                        <li><a href="cities.html?category=interior">Interior Designers</a></li>
+                        <li><a href="cities.html?category=commercial">Commercial Designers</a></li>
+                        <!-- <li><a href="">Eventos</a></li> -->
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <p class="footerHeads">Contact Form</p>
+                    <form method="POST" action="" class="contact-form" id="registrationform" clear;>
+                        <input class="inputClass" type="email" name="email" id="email" placeholder="Email">
+                        <textarea name="textarea" id="textarea" cols="30" rows="3"
+                            placeholder="Write your problem in brief."></textarea>
+                        <button type="submit" contactForm(event)>Submit</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <hr width="100%" color="darkgrey">
+        <div class="footer-down">
+            <div class="socialmedia"><a href="https://www.instagram.com/vishvakarmans/" target="_blank" class="insta white "><i
+                        class="bx bxl-instagram insta fs-1 px-2"></i></a>
+                                <a href="https://www.youtube.com/@Vishvakarmans" target="_blank" class="ytube white "><i class="bx bxl-youtube fs-1  px-2"></i></a>
+
+                <a href="https://twitter.com/vishvakarmans" target="_blank" class="twitter white"><i class="bx bxl-twitter fs-1  px-2"></i></a>
+
+                <a href="https://www.linkedin.com/in/vishvakarmans/" target="_blank" class="linkdin white"><i class="bx bxl-linkedin fs-1 px-2"></i></a>
+                <a href="mailto:vishvakarmans55@gmail.com" target="_blank" class="mail white"><i class="bx bx-envelope fs-1 px-2"></i></a>
+            </div>
+            <p class="copyright">Vishvakarmans &copy; 2023</p>
+        </div>
+        </div>
+    </footer>
+    <script type="module">
+        import { app } from "./firebase_app.js";
+        import { getDatabase, ref, get } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-database.js";
+        setTimeout(() => {
+            const loader = document.getElementById('loader');
+            const productsView = document.getElementById('productsView');
+            loader.classList.add('hide');
+            productsView.classList.remove('hide');
+        }, 2300);
+        const database = getDatabase(app);
+        const urlParams = new URLSearchParams(window.location.search);
+        let category = urlParams.get('category');
+        let city = urlParams.get('city');
+        if (!category || !city) {
+            const error404 = document.getElementById('error404');
+            error404.classList.remove('hide');
+            const productsView = document.getElementById('productsView');
+            productsView.classList.add('hide');
+            const selectText = document.getElementById('selectText');
+            selectText.classList.add('hide');
+        }
+        else {
+            category = category.charAt(0).toUpperCase() + category.slice(1);
+            const productsView = document.getElementById('productsView');
+            const productsRef = ref(database, `data/${category}-designers/${city}`);
+            get(productsRef).then((snapshot) => {
+                if (snapshot.exists()) {
+                    const productsData = snapshot.val();
+                    Object.keys(productsData).forEach((orgKey) => {
+                        const org = productsData[orgKey];
+                        const productElement = document.createElement('div');
+                        productElement.classList.add('products');
+                        let currentImage = org.urlImg;
+                        if (category == "Commercial") {
+                            productElement.innerHTML = `
+            <div class="product-card">
+                <div class="sample-images">
+                    <p class="sample-img" data-src="${org.sampleImages.cabinets}">Cabinets</p>
+                    <p class="sample-img" data-src="${org.sampleImages.meetHalls}">Meeting Halls</p>
+                    <p class="sample-img" data-src="${org.sampleImages.visitingRoom}">Visiting Room</p></div>
+                    <p class="content" onclick="exploreProduct('${orgKey}','${org.orgName}')">${org.orgName}</p>
+                <img src="${currentImage}" alt="${org.orgName} Image" onclick="exploreProduct('${orgKey}','${org.orgName}')">
+            </div>
+        `;
+                        }
+                        else if (category == "Interior") {
+                            productElement.innerHTML = `
+            <div class="product-card">
+                <div class="sample-images">
+                    <p class="sample-img" data-src="${org.sampleImages.livingRoom}">Living Room</p>
+                    <p class="sample-img" data-src="${org.sampleImages.kitchen}">Kitchen</p>
+                    <p class="sample-img" data-src="${org.sampleImages.bedroom}">Bed Room</p></div>
+                    <p class="content" onclick="exploreProduct('${orgKey}','${org.orgName}')" >${org.orgName}</p>
+                <img src="${currentImage}" alt="${org.orgName} Image" onclick="exploreProduct('${orgKey}','${org.orgName}')">
+            </div>
+        `;
+                        }
+                        const sampleImgElements = document.querySelectorAll('.sample-img');
+                        sampleImgElements.forEach((element) => {
+                            element.addEventListener('click', function () {
+                                const src = this.getAttribute('data-src');
+                                sampleImg(src);
+                            });
+                            function sampleImg(src) {
+                                const productImages = document.querySelectorAll('.products-view .products img');
+                                productImages.forEach((img) => {
+                                    img.src = src;
+                                });
+                            }
+                        });
+
+                        productsView.appendChild(productElement);
+                    });
+                } else {
+                    const error404 = document.getElementById('error404'); error404.classList.remove('hide'); const productsView = document.getElementById('productsView'); const selectText = document.getElementById('selectText');
+                    selectText.classList.add('hide'); productsView.classList.add('hide');
+                }
+            }).catch((error) => { console.error("Error fetching data:", error); }); document.title = `${city.charAt(0).toUpperCase() + city.slice(1)} - List View`; document.getElementById("selectText").innerHTML
+                = `Select the Organizations present in ${city.charAt(0).toUpperCase() + city.slice(1)} :`;
+        }
+        window.exploreProduct = function (productId, name) {
+            const url = `details.html?category=${category}&city=${city}&id=${productId}&name=${name}`; window.open(url,
+                '_blank');
+        }
+        window.compareDesigners = function () {
+            const url = `compare.html?category=${category}&city=${city}`; window.open(url,
+                '_blank');
+        }
+    </script>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

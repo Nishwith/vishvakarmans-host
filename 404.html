@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Vishvakarmans - Page Not Found</title>
+
+    <link rel="stylesheet" href="style.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="shortcut icon" href="images/logo.png" type="image/x-icon">
+    <script type="module" src="firebase_app.js">
+    </script>
+    <style>
+      .footer-bg .container{
+        background: transparent;
+      }
+      section{
+        height: max-content;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: #001c30;
+      }
+      .error span{
+        color: #ff7f00;
+      }
+    </style>
+  </head>
+  <body>
+    <header class="header">
+      <a href="index.html" class="logo"><img class="logo-img" src="images/logo.png" alt="Vishvakarmans Logo Png">
+          <h1>Vishvakarmans</h1>
+      </a>
+      <i class='bx bx-menu' id="menu-icon"></i>
+      <nav class="navbar">
+          <a href="index.html" class="btn navBtn">Home</a>
+          <a href="index.html#selection" class="btn navBtn">Products</a>
+          <a href="form.html" class="btn navBtn">Collab with Us</a>
+          <a href="index.html#aboutUs" class="btn navBtn">About Us</a>
+          <a href="#contact" class="btn navBtn">Contact Us</a>
+          <a href="" id="logout" class="btn navBtn">LogOut</a>
+      </nav>
+  </header>
+
+ <div class="footer-bg">
+    <div class="container">
+<section>
+<div class="error">Page Not Found - <span>404</span></div>
+<div class="title"><img class="logo-img" src="images/white-logo.png" alt="Vishvakarmans Logo Png">
+  <h1>ishvakarmans</h1>
+</div>
+</section>        
+    </div>
+</div>
+<footer id="contact">
+  <div class="footer-up">
+      <a href="index.html" class="logo"><img class="logo-img" src="images/logo.png"
+              alt="Vishvakarmans Logo Png">
+          <h1>Vishvakarmans</h1>
+      </a>
+      <a href="index.html" target="_blank"><img class="bn45"
+              src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/78/Google_Play_Store_badge_EN.svg/2560px-Google_Play_Store_badge_EN.svg.png"
+              alt="Play Store" /></a>
+      <div class="footer-row">
+          <div class="footer-col">
+              <p class="footerHeads">Contact Us</p>
+              <p class="footercontact">
+                                <a href="https://maps.app.goo.gl/fMxyvrS6QgdNq2sc9" target="_blank" style="text-decoration: none; color: white;"><i class='bx bx-current-location'></i> Google Maps</a>
+
+              </p>
+          </div>
+          <div class="footer-col">
+              <p class="footerHeads">Services</p>
+              <ul>
+                  <li><a href="cities.html?category=interior">Interior Designers</a></li>
+                  <li><a href="cities.html?category=commercial">Commercial Designers</a></li>
+                  <!-- <li><a href="">Eventos</a></li> -->
+              </ul>
+          </div>
+          <div class="footer-col">
+              <p class="footerHeads">Contact Form</p>
+              <form method="POST" action="" class="contact-form" id="registrationform" clear;>
+                  <input class="inputClass" type="email" name="email" id="email" placeholder="Email">
+                  <textarea name="textarea" id="textarea" cols="30" rows="3"
+                      placeholder="Write your problem in brief."></textarea>
+                  <button type="submit" contactForm(event)>Submit</button>
+              </form>
+          </div>
+      </div>
+  </div>
+  <hr width="100%" color="darkgrey">
+  <div class="footer-down">
+      <div class="socialmedia">
+          <a href="https://www.instagram.com/vishvakarmans/" target="_blank" class="insta white "><i class="bx bxl-instagram insta fs-1 px-2"></i></a>
+          <a href="https://www.youtube.com/@Vishvakarmans" target="_blank" class="ytube white "><i
+                  class="bx bxl-youtube fs-1  px-2"></i></a>
+
+          <a href="https://twitter.com/vishvakarmans" target="_blank" class="twitter white"><i class="bx bxl-twitter fs-1  px-2"></i></a>
+          <a href="https://www.linkedin.com/in/vishvakarmans/" target="_blank" class="linkdin white"><i class="bx bxl-linkedin fs-1 px-2"></i></a>
+          <a href="mailto:vishvakarmans55@gmail.com" target="_blank" class="mail white"><i class="bx bx-envelope fs-1 px-2"></i></a>
+      </div>
+      <p class="copyright">Vishvakarmans &copy; 2023</p>
+  </div>
+</div>
+</footer>
+  </body>
+</html>

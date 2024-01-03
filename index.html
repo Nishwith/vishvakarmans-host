@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vishvakarmans</title>
+    <link rel="stylesheet" href="style.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="shortcut icon" href="images/logo.png" type="image/x-icon">
+    <script type="module" src="firebase_app.js">
+    </script>
+    <style>
+        .auto-type{
+            color: #ff7f00;
+            font-weight: 600;
+        }
+        @media (max-width:550px) {
+            .popular-title {
+                margin-left: 0;
+                font-size: 20px;
+            }
+
+            .popular-list {
+                margin: 10px 5px 10px 0;
+                min-height: 200px;
+            }
+
+            .popular-list .products {
+                height: 190px;
+                line-height: 190px;
+            }
+
+            .popular-list .products .product-card {
+                margin: 5px 0px 5px 5px;
+            }
+
+            .popular-list .products .content {
+                font-size: 18px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header class="header">
+        <a href="#" class="logo"><img class="logo-img" src="images/logo.png" alt="Vishvakarmans Logo Png">
+            <h1>Vishvakarmans</h1>
+        </a>
+        <i class='bx bx-menu' id="menu-icon"></i>
+        <nav class="navbar">
+            <a href="#" class="btn navBtn">Home</a>
+            <a href="#selection" class="btn navBtn">Products</a>
+            <a href="form.html" class="btn navBtn">Collab with Us</a>
+            <a href="#aboutUs" class="btn navBtn">About Us</a>
+            <a href="#contact" class="btn navBtn">Contact Us</a>
+            <a href="" id="logout" class="btn navBtn">LogOut</a>
+        </nav>
+    </header>
+    <main>
+        <section>
+            <span class="title">VISHVAKARMANS</span>
+            <span class="subtitle">Find the best <span class="auto-type">Designers</span></span>
+        </section>
+    </main>
+    <div id="selection">
+        <p class="selectText">Select Your Category :</p>
+        <div class="section">
+            <a href="cities.html?category=interior">
+                <div class="card">
+                    <img src="images/Interior.jpg" alt="Interior Designers Images">
+                    <p class="content">Interior Designers</p>
+                </div>
+            </a>
+            <a href="cities.html?category=commercial">
+                <div class="card">
+                    <img src="images/Commercial.jpg" alt="Commercial Designers Images">
+                    <p class="content">Commercial Designers</p>
+                </div>
+            </a>
+        </div>
+    </div>
+    <div class="footer-bg">
+        <div class="container">
+            <p class="content">Find the Best with the</p>
+            <div class="title"><img class="logo-img" src="images/white-logo.png" alt="Vishvakarmans Logo Png">
+                <h1>ishvakarmans</h1>
+            </div>
+        </div>
+    </div>
+    <div class="popular-orgs">
+        <div class="padding"><span class="popular-title">Popular Interior Designers </span>
+            <div class="interior-popular popular-list" id="interior-popular"></div>
+        </div>
+        <hr>
+        <div class="padding"><span class="popular-title">Popular Commercial-designers Designers </span>
+            <div class="commercial-popular popular-list" id="commercial-popular"></div>
+        </div>
+        <div class="hero" id="aboutUs">
+            <p class="aboutTitle">About Us</p>
+            <div class="about-us">
+                <div class="btn-box">
+                    <button id="btn1" onclick="openContent1(); clearInterval(aboutSlide);"><i
+                            class='bx bx-search-alt-2'></i>
+                        <p>Find Designers by City</p>
+                    </button>
+                    <button id="btn2" onclick="openContent2(); clearInterval(aboutSlide);"><i
+                            class='bx bxs-conversation'></i>
+                        <p>Easy Connections</p>
+                    </button>
+                    <button id="btn3" onclick="openContent3(); clearInterval(aboutSlide);"><i
+                            class='bx bxs-check-circle'></i>
+                        <p>Quality Assured</p>
+                    </button>
+                    <button id="btn4" onclick="openContent4(); clearInterval(aboutSlide);"><i class='bx bxs-sun'></i>
+                        <p>Get Involved</p>
+                    </button>
+                </div>
+                <div id="content1" class="contents">
+                    <div class="content-left">
+                        <p class="aboutSubs">Find Designers by City</p>
+                        <p class="aboutContent">Easily locate curated interior and commercial designers based on your
+                            city. We've curated a selection of top-tier designers, ensuring you find the right fit for
+                            your project without searching extensively.</p>
+                    </div>
+                    <div class="content-right">
+                        <img src="images/search.jpg" alt="Search Image" srcset="">
+                    </div>
+                </div>
+                <div id="content2" class="contents">
+                    <div class="content-left">
+                        <p class="aboutSubs">Easy Connections</p>
+                        <p class="aboutContent">Explore comprehensive designer profiles featuring portfolios, client
+                            reviews, and expertise. Our platform facilitates direct communication with your chosen
+                            designer, streamlining the process of initiating and managing your project.</p>
+                    </div>
+                    <div class="content-right">
+                        <img src="images/connection.jpg" alt="Connections Images" srcset="">
+                    </div>
+                </div>
+                <div id="content3" class="contents">
+                    <div class="content-left">
+                        <p class="aboutSubs">Quality Assured</p>
+                        <p class="aboutContent">We maintain a rigorous selection process, handpicking designers
+                            committed to innovative transformations. Each designer featured on Vishvakarmans showcases
+                            expertise, creativity, and a dedication to enhancing spaces.</p>
+                    </div>
+                    <div class="content-right">
+                        <img src="images/quality.jpg" alt="Quality Images" srcset="">
+                    </div>
+                </div>
+                <div id="content4" class="contents">
+                    <div class="content-left">
+                        <p class="aboutSubs">Get Involved</p>
+                        <p class="aboutContent">Vishvakarmans isn't just a platform; it's a community. Whether you're a
+                            designer wanting to showcase your work or someone seeking design inspiration, our platform
+                            welcomes all enthusiasts to engage, share, and collaborate.</p>
+                    </div>
+                    <div class="content-right">
+                        <img src="images/innovate.jpg" alt="Innovate Images" srcset="">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="numbers-view">
+            <div class="title">Vishvakarmans in Numbers</div>
+            <div class="numbers-flex">
+                <div class="numbers-flex-content">
+                    <div class="content-title"><i class='bx bx-infinite'></i></div>
+                    <div class="content-content">Happy customers</div>
+                </div>
+                <div class="numbers-flex-content">
+                    <div class="content-title"><i class='bx bx-infinite'></i></div>
+                    <div class="content-content">Interior Designers</div>
+                </div>
+                <div class="numbers-flex-content">
+                    <div class="content-title"><i class='bx bx-infinite'></i></div>
+                    <div class="content-content">Commercial Designers</div>
+                </div>
+                <div class="numbers-flex-content">
+                    <div class="content-title"><i class='bx bx-infinite'></i></div>
+                    <div class="content-content">Cities</div>
+                </div>
+            </div>
+        </div>
+        <footer id="contact">
+            <div class="footer-up">
+                <a href="index.html" class="logo"><img class="logo-img" src="images/logo.png"
+                        alt="Vishvakarmans Logo Png">
+                    <h1>Vishvakarmans</h1>
+                </a>
+                <a href="index.html" target="_blank"><img class="bn45"
+                        src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/78/Google_Play_Store_badge_EN.svg/2560px-Google_Play_Store_badge_EN.svg.png"
+                        alt="Play Store" /></a>
+                <div class="footer-row">
+                    <div class="footer-col">
+                        <p class="footerHeads">Contact Us</p>
+                        <p class="footercontact">
+                            <a href="https://maps.app.goo.gl/fMxyvrS6QgdNq2sc9" target="_blank" style="text-decoration: none; color: white;"><i class='bx bx-current-location'></i> Google Maps</a>
+                        </p>
+                    </div>
+                    <div class="footer-col">
+                        <p class="footerHeads">Services</p>
+                        <ul>
+                            <li><a href="cities.html?category=interior">Interior Designers</a></li>
+                            <li><a href="cities.html?category=commercial">Commercial Designers</a></li>
+                            <!-- <li><a href="">Eventos</a></li> -->
+                        </ul>
+                    </div>
+                    <div class="footer-col">
+                        <p class="footerHeads">Contact Form</p>
+                        <form method="POST" action="" class="contact-form" id="registrationform" clear;>
+                            <input class="inputClass" type="email" name="email" id="email" placeholder="Email">
+                            <textarea name="textarea" id="textarea" cols="30" rows="3"
+                                placeholder="Write your problem in brief."></textarea>
+                            <button type="submit" contactForm(event)>Submit</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <hr width="100%" color="darkgrey">
+            <div class="footer-down">
+                <div class="socialmedia">
+                    <a href="https://www.instagram.com/vishvakarmans/" target="_blank" class="insta white "><i class="bx bxl-instagram insta fs-1 px-2"></i></a>
+                    <a href="https://www.youtube.com/@Vishvakarmans" target="_blank" class="ytube white "><i
+                            class="bx bxl-youtube fs-1  px-2"></i></a>
+
+                    <a href="https://twitter.com/vishvakarmans" target="_blank" class="twitter white"><i class="bx bxl-twitter fs-1  px-2"></i></a>
+                    <a href="https://www.linkedin.com/in/vishvakarmans/" target="_blank" class="linkdin white"><i class="bx bxl-linkedin fs-1 px-2"></i></a>
+                    <a href="mailto:vishvakarmans55@gmail.com" target="_blank" class="mail white"><i class="bx bx-envelope fs-1 px-2"></i></a>
+                </div>
+                <p class="copyright">Vishvakarmans &copy; 2023</p>
+            </div>
+    </div>
+    </footer>
+    <script src="https://unpkg.com/typed.js@2.1.0/dist/typed.umd.js"></script>
+    <script>
+        var typed = new Typed(".auto-type",{
+            strings :["Interior Designers", "Commercial Designers"],
+            typingSpeed:200,
+            backSpeed:200,
+            loop:true
+        });
+    </script>
+    <script src="script.js"></script>
+    <script type="module">
+        import { app } from "./firebase_app.js";
+        import { getDatabase, ref, get } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-database.js";
+        const database = getDatabase(app);
+        const interiorPopularList = document.getElementById('interior-popular');
+        const commercialPopularList = document.getElementById('commercial-popular');
+        const interiorPopularRef = ref(database, 'popular Choices/Interior-designers');
+        const commercialPopularRef = ref(database, 'popular Choices/Commercial-designers');
+        get(interiorPopularRef).then((snapshot) => {
+            if (snapshot.exists()) {
+                const productsData = snapshot.val();
+                Object.keys(productsData).forEach((orgKey) => {
+                    const org = productsData[orgKey];
+                    const productElement = document.createElement('div');
+                    productElement.classList.add('products');
+                    const images = org.bestImages;
+                    let imageIndex = 0;
+                    function updateOrgImage() {
+                        const currentImage = images[imageIndex];
+                        productElement.innerHTML = `
+            <div class="product-card" onclick="exploreProduct('${orgKey}','${org.orgName}','Interior-designers')">
+                <img src="${currentImage}" alt="${org.orgName} Image">
+                <p class="content">${org.orgName}</p>
+            </div>
+        `;
+                        imageIndex = (imageIndex + 1) % images.length;
+                    }
+                    updateOrgImage();
+                    const intervalId = setInterval(updateOrgImage, 2500);
+                    interiorPopularList.appendChild(productElement);
+                });
+            } else {
+                const error404 = document.getElementById('error404'); error404.classList.remove('hide'); const productsView = document.getElementById('productsView'); const selectText = document.getElementById('selectText');
+                selectText.classList.add('hide'); productsView.classList.add('hide');
+            }
+        }).catch((error) => { console.error("Error fetching data:", error); });
+        get(commercialPopularRef).then((snapshot) => {
+            if (snapshot.exists()) {
+                const productsData = snapshot.val();
+                Object.keys(productsData).forEach((orgKey) => {
+                    const org = productsData[orgKey];
+                    const productElement = document.createElement('div');
+                    productElement.classList.add('products');
+                    const images = org.bestImages;
+                    let imageIndex = 0;
+                    function updateOrgImage() {
+                        const currentImage = images[imageIndex];
+                        productElement.innerHTML = `
+            <div class="product-card" onclick="exploreProduct('${orgKey}','${org.orgName}','Commercial-designers')">
+                <img src="${currentImage}" alt="${org.orgName} Image">
+                <p class="content">${org.orgName}</p>
+            </div>
+        `;
+                        imageIndex = (imageIndex + 1) % images.length;
+                    }
+                    updateOrgImage();
+                    const intervalId = setInterval(updateOrgImage, 2500);
+                    commercialPopularList.appendChild(productElement);
+                });
+            } else {
+                const error404 = document.getElementById('error404'); error404.classList.remove('hide'); const productsView = document.getElementById('productsView'); const selectText = document.getElementById('selectText');
+                selectText.classList.add('hide'); productsView.classList.add('hide');
+            }
+        }).catch((error) => { console.error("Error fetching data:", error); });
+        window.exploreProduct = function (productId, name, category) {
+            const url = `details.html?category=${category}&id=${productId}&name=${name}`; window.open(url,
+                '_blank');
+        }   </script>
+    <script>
+        const contentFunctions = [openContent1, openContent2, openContent3, openContent4];
+        let currentContentIndex = 0;
+        const interval = 3500;
+
+        function switchContent() {
+            contentFunctions[currentContentIndex]();
+            currentContentIndex = (currentContentIndex + 1) % contentFunctions.length;
+        }
+        aboutSlide = setInterval(switchContent, interval);
+    </script>
+</body>
+
+</html>

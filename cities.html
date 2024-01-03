@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cities - Vishvakarmans</title>
+    <link rel="shortcut icon" href="images/logo.png" type="image/x-icon">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="style.css">
+    <script type="module" src="firebase_app.js">
+    </script>
+    <style>
+        .cities-main {
+            margin: 15px;
+        }
+
+        .cities-view {
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            -ms-flex-wrap: wrap;
+            flex-wrap: wrap;
+            margin: 20px;
+            -webkit-box-pack: justify;
+            -ms-flex-pack: justify;
+            justify-content: space-between;
+        }
+
+        .cities-card:hover img {
+            scale: 1.2;
+        }
+
+        .cities-card {
+            margin: 10px;
+            -webkit-box-flex: 0;
+            -ms-flex-positive: 0;
+            flex-grow: 0;
+            height: 200px;
+            aspect-ratio: 1 / 1;
+            overflow: hidden;
+            position: relative;
+            border-radius: 20px;
+        }
+
+        .cities-card img {
+            border-radius: 20px;
+            width: 100%;
+            height: 100%;
+            -o-object-fit: fill;
+            object-fit: fill;
+            display: block;
+            -webkit-transition: all .5s ease-in-out;
+            -o-transition: all .5s ease-in-out;
+            transition: all .5s ease-in-out;
+        }
+
+        .header {
+            border-bottom: 1px solid white;
+        }
+
+        .cities-card .content {
+            border-radius: 20px;
+            text-shadow: #000 -2px -2px;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            position: absolute;
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            -webkit-box-pack: center;
+            -ms-flex-pack: center;
+            justify-content: center;
+            -webkit-box-align: center;
+            -ms-flex-align: center;
+            align-items: center;
+            -webkit-box-orient: vertical;
+            -webkit-box-direction: normal;
+            -ms-flex-direction: column;
+            flex-direction: column;
+            font-size: 28px;
+            text-align: center;
+            font-weight: 800;
+            background: #00000030;
+            color: #fff;
+            -webkit-transition: all 0.3s ease-in-out;
+            -o-transition: all 0.3s ease-in-out;
+            transition: all 0.3s ease-in-out;
+        }
+
+        @media (max-width: 950px) {
+            .cities-view {
+                -webkit-box-pack: space-evenly;
+                -ms-flex-pack: space-evenly;
+                justify-content: space-evenly;
+            }
+        }
+
+        @media (max-width: 470px) {
+            .cities-card {
+                height: 200px !important;
+            }
+
+            .cities-card .content {
+                font-size: 25px !important;
+            }
+        }
+
+        @media (min-width: 1440px) {
+            .cities-view {
+                -webkit-box-pack: center;
+                -ms-flex-pack: center;
+                justify-content: center;
+            }
+        }
+
+        @media (min-width: 730px) {
+            .city-link {
+                -webkit-animation: slide 1s ease-in;
+                animation: slide 1s ease-in;
+            }
+
+            @-webkit-keyframes slide {
+                from {
+                    -webkit-transform: translateY(100%);
+                    transform: translateY(100%);
+                }
+
+                to {
+                    -webkit-transform: translateY(0%);
+                    transform: translateY(0%);
+                }
+            }
+
+            @keyframes slide {
+                from {
+                    -webkit-transform: translateY(100%);
+                    transform: translateY(100%);
+                }
+
+                to {
+                    -webkit-transform: translateY(0%);
+                    transform: translateY(0%);
+                }
+            }
+        }
+
+        @media (max-width: 730px) {
+            .city-link:nth-child(odd) {
+                -webkit-animation: slideLeft 1s ease-in;
+                animation: slideLeft 1s ease-in;
+            }
+
+            .city-link:nth-child(even) {
+                -webkit-animation: slideRight 1s ease-in;
+                animation: slideRight 1s ease-in;
+            }
+
+            @-webkit-keyframes slideLeft {
+                from {
+                    -webkit-transform: translateX(100%);
+                    transform: translateX(100%);
+                }
+
+                to {
+                    -webkit-transform: translateX(0%);
+                    transform: translateX(0%);
+                }
+            }
+
+            @keyframes slideLeft {
+                from {
+                    -webkit-transform: translateX(100%);
+                    transform: translateX(100%);
+                }
+
+                to {
+                    -webkit-transform: translateX(0%);
+                    transform: translateX(0%);
+                }
+            }
+
+            @-webkit-keyframes slideRight {
+                from {
+                    -webkit-transform: translateX(-100%);
+                    transform: translateX(-100%);
+                }
+
+                to {
+                    -webkit-transform: translateX(0%);
+                    transform: translateX(0%);
+                }
+            }
+
+            @keyframes slideRight {
+                from {
+                    -webkit-transform: translateX(-100%);
+                    transform: translateX(-100%);
+                }
+
+                to {
+                    -webkit-transform: translateX(0%);
+                    transform: translateX(0%);
+                }
+            }
+        }
+
+        @media (max-width: 550px) {
+            .cities-view {
+                -webkit-box-pack: center;
+                -ms-flex-pack: center;
+                justify-content: center;
+            }
+
+            .cities-card {
+                height: 185px !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header class="header">
+        <a href="index.html" class="logo"><img class="logo-img" src="images/logo.png" alt="Vishvakarmans Logo Png">
+            <h1>Vishvakarmans</h1>
+        </a>
+        <i class='bx bx-menu' id="menu-icon"></i>
+        <nav class="navbar">
+            <a href="index.html" class="btn navBtn">Home</a>
+            <a href="index.html#selection" class="btn navBtn">Products</a>
+            <a href="form.html" class="btn navBtn">Collab with Us</a>
+            <a href="index.html#aboutUs" class="btn navBtn">About Us</a>
+            <a href="#contact" class="btn navBtn">Contact Us</a>
+            <a href="" id="logout" class="btn navBtn">LogOut</a>
+
+        </nav>
+    </header>
+    <div class="cities-main">
+        <p class="selectText"><span style="font-family: 'Josefin Sans';">Select the city:</span></p>
+        <div class="cities-view">
+            <script>
+                const urlParams = new URLSearchParams(window.location.search);
+                const category = urlParams.get('category');
+                const citiesView = document.querySelector('.cities-view');
+                const selectText = document.querySelector('.selectText');
+                if (category === 'interior' || category === 'commercial') {
+                    const citiesData = [{
+                        name: 'Hyderabad',
+                        image: 'images/hyderabad.png'
+                    }, 
+                    {
+                        name: 'Bangalore',
+                        image: 'images/bangalore.png'
+                    }, {
+                        name: 'Mumbai',
+                        image: 'images/mumbai.png'
+                    }, {
+                        name: 'Delhi',
+                        image: 'images/delhi.png'
+                    }, {
+                        name: 'Chennai',
+                        image: 'images/chennai.png'
+                    }, {
+                        name: 'Vizag',
+                        image: 'images/vizag.png'
+                    },
+
+                    ];
+                    citiesData.forEach(city => {
+                        const cityLink = document.createElement('a');
+                        cityLink.href = `listview.html?category=${category}&city=${city.name.toLowerCase()}`;
+                        cityLink.classList.add('city-link');
+                        const cityCard = document.createElement('div');
+                        cityCard.classList.add('cities-card');
+                        const cityImage = document.createElement('img');
+                        cityImage.src = city.image;
+                        cityImage.alt = city.name
+                        const cityName = document.createElement('p');
+                        cityName.classList.add('content');
+                        cityName.textContent = city.name;
+
+                        cityCard.appendChild(cityImage);
+                        cityCard.appendChild(cityName);
+                        cityLink.appendChild(cityCard);
+                        citiesView.appendChild(cityLink);
+                    });
+                } else {
+                    selectText.classList.add('hide');
+                    const errorText = document.createElement('p');
+                    errorText.classList.add('error');
+                    errorText.textContent = '404 Page Not Found';
+                    citiesView.appendChild(errorText);
+                }
+            </script>
+        </div>
+    </div>
+    </main>
+    <hr>
+    <div class="footer-bg">
+        <div class="container">
+            <p class="content">Find the Best with the</p>
+            <div class="title"><img class="logo-img" src="images/white-logo.png" alt="Vishvakarmans Logo Png">
+                <h1>ishvakarmans</h1>
+            </div>
+        </div>
+    </div>
+    <div class="numbers-view">
+        <div class="title">Vishvakarmans in Numbers</div>
+        <div class="numbers-flex">
+            <div class="numbers-flex-content">
+                <div class="content-title"><i class='bx bx-infinite'></i></div>
+                <div class="content-content">Happy customers</div>
+            </div>
+            <div class="numbers-flex-content">
+                <div class="content-title"><i class='bx bx-infinite'></i></div>
+                <div class="content-content">Interior Designers</div>
+            </div>
+            <div class="numbers-flex-content">
+                <div class="content-title"><i class='bx bx-infinite'></i></div>
+                <div class="content-content">Commercial Designers</div>
+            </div>
+            <div class="numbers-flex-content">
+                <div class="content-title"><i class='bx bx-infinite'></i></div>
+                <div class="content-content">Cities</div>
+            </div>
+        </div>
+    </div>
+    <footer id="contact">
+        <div class="footer-up">
+            <a href="index.html" class="logo"><img class="logo-img" src="images/logo.png" alt="Vishvakarmans Logo Png">
+                <h1>Vishvakarmans</h1>
+            </a>
+            <a href="index.html" target="_blank"><img class="bn45"
+                    src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/78/Google_Play_Store_badge_EN.svg/2560px-Google_Play_Store_badge_EN.svg.png"
+                    alt="PLay Store" /></a>
+            <div class="footer-row">
+                <div class="footer-col">
+                    <p class="footerHeads">Contact Us</p>
+                    <p class="footercontact">
+                                      <a href="https://maps.app.goo.gl/fMxyvrS6QgdNq2sc9" target="_blank" style="text-decoration: none; color: white;"><i class='bx bx-current-location'></i> Google Maps</a>
+
+                    </p>
+                </div>
+                <div class="footer-col">
+                    <p class="footerHeads">Services</p>
+                    <ul>
+                        <li><a href="cities.html?category=interior">Interior Designers</a></li>
+                        <li><a href="cities.html?category=commercial">Commercial Designers</a></li>
+                        <!-- <li><a href="">Eventos</a></li> -->
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <p class="footerHeads">Contact Form</p>
+                    <form method="POST" action="" class="contact-form" id="registrationform" clear;>
+                        <input class="inputClass" type="email" name="email" id="email" placeholder="Email">
+                        <textarea name="textarea" id="textarea" cols="30" rows="3"
+                            placeholder="Write your problem in brief."></textarea>
+                        <button type="submit" contactForm(event)>Submit</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <hr width="100%" color="darkgrey">
+        <div class="footer-down">
+            <div class="socialmedia"><a href="https://www.instagram.com/vishvakarmans/" target="_blank" class="insta white "><i
+                        class="bx bxl-instagram insta fs-1 px-2"></i></a>
+                                <a href="https://www.youtube.com/@Vishvakarmans" target="_blank" class="ytube white "><i class="bx bxl-youtube fs-1  px-2"></i></a>
+
+                <a href="https://twitter.com/vishvakarmans" target="_blank" class="twitter white"><i class="bx bxl-twitter fs-1  px-2"></i></a>
+
+                <a href="https://www.linkedin.com/in/vishvakarmans/" target="_blank" class="linkdin white"><i class="bx bxl-linkedin fs-1 px-2"></i></a>
+                <a href="mailto:vishvakarmans55@gmail.com" target="_blank" class="mail white"><i class="bx bx-envelope fs-1 px-2"></i></a>
+            </div>
+            <p class="copyright">Vishvakarmans &copy; 2023</p>
+        </div>
+        </div>
+    </footer>
+    <script src="script.js"></script>
+</body>
+
+</html>

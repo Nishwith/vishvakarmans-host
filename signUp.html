@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vishvakarmans - SignUp</title>
+  <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
+  <link rel="shortcut icon" href="images/logo.png" type="image/x-icon" />
+  <style>
+    @import url("https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@500&family=Poppins&display=swap");
+
+    * {
+      margin: 0;
+      padding: 0;
+      -webkit-box-sizing: border-box;
+      box-sizing: border-box;
+      font-family: "poppins";
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background: #001c30;
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-pack: center;
+      -ms-flex-pack: center;
+      justify-content: center;
+      -webkit-box-align: center;
+      -ms-flex-align: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .form-bg {
+      width: 420px;
+      background: #fff;
+      padding: 40px 30px;
+      border-radius: 10px;
+    }
+
+    .form-bg form h1 {
+      color: #001c30;
+      text-align: center;
+      font-size: 36px;
+      font-weight: 600;
+    }
+
+    .form-bg form .inputBox {
+      position: relative;
+      width: 100%;
+      height: 50px;
+      margin: 20px 0px;
+    }
+
+    input::-webkit-input-placeholder {
+      color: #001c30;
+    }
+
+    input::-moz-placeholder {
+      color: #001c30;
+    }
+
+    input:-ms-input-placeholder {
+      color: #001c30;
+    }
+
+    input::-ms-input-placeholder {
+      color: #001c30;
+    }
+
+    input::placeholder {
+      color: #001c30;
+    }
+
+    i {
+      position: absolute;
+      right: 20px;
+      top: 50%;
+      -webkit-transform: translateY(-50%);
+      -ms-transform: translateY(-50%);
+      transform: translateY(-50%);
+      font-size: 20px;
+    }
+
+    input {
+      background: transparent;
+      padding: 0px 20px;
+      width: 100%;
+      height: 100%;
+      font-size: 16px;
+      border: 2px solid rgba(0, 0, 0, 0.2);
+      outline: none;
+      border-radius: 40px;
+    }
+
+    form .btn:hover {
+      color: #ff7f00;
+      background: white;
+      border: 1px solid #ff7f00;
+      -webkit-box-shadow: 5px 10px #000;
+      box-shadow: 5px 10px #000;
+    }
+
+    form .btn {
+      width: 100%;
+      background: #001c30;
+      border: 2px solid #001c30;
+      padding: 5px 30px;
+      color: white;
+      font-size: 25px;
+      font-weight: 600;
+      cursor: pointer;
+      border-radius: 25px;
+      -webkit-box-shadow: 2px 2px #000;
+      box-shadow: 2px 2px #000;
+      -webkit-transition: all 0.3s ease-in-out;
+      -o-transition: all 0.3s ease-in-out;
+      transition: all 0.3s ease-in-out;
+    }
+
+    .signUp-link {
+      font-size: 16.5px;
+      margin: 20px 0 10px 0;
+      text-align: center;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="form-bg">
+    <form action="" clear;>
+      <h1>SignUp</h1>
+      <div class="inputBox">
+        <input type="text" name="UserName" id="UserName" placeholder="Enter UserName" required />
+        <i class="bx bxs-user"></i>
+      </div>
+      <div class="inputBox">
+        <input type="number" name="phoneNum" id="phoneNum" placeholder="Enter Phone Number" required />
+        <i class="bx bxs-phone-call"></i>
+      </div>
+      <div class="inputBox">
+        <input type="email" name="email" id="email" placeholder="Enter Email" required />
+        <i class="bx bxl-gmail"></i>
+      </div>
+      <div class="inputBox">
+        <input type="password" name="password" id="password" placeholder="Enter password" required />
+        <i class="bx bxs-hide" id="toggle-hide"></i>
+      </div>
+      <div id="loginBtn">
+        <button type="button" class="btn">SignUp</button>
+      </div>
+      <div class="signUp-link">
+        <p>I have an Account? <a href="login.html">Login</a></p>
+      </div>
+    </form>
+  </div>
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-app.js";
+    import {
+      getAuth,
+      createUserWithEmailAndPassword,
+      sendEmailVerification,
+      deleteUser,
+    } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-auth.js";
+    import {
+      getFirestore,
+      doc,
+      setDoc,
+    } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-firestore.js";
+    const firebaseConfig = {
+      apiKey: "AIzaSyBI7GasxH-xjX0QgxMTqwSF_56yk8HD6D8",
+      authDomain: "vishvakarmans-93d5a.firebaseapp.com",
+      databaseURL: "https://vishvakarmans-93d5a-default-rtdb.asia-southeast1.firebasedatabase.app",
+      projectId: "vishvakarmans-93d5a",
+      storageBucket: "vishvakarmans-93d5a.appspot.com",
+      messagingSenderId: "251723619946",
+      appId: "1:251723619946:web:063337559b52788eca3413",
+      measurementId: "G-VPJMSQJS7W"
+    };
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+    const passwordInput = document.getElementById("password");
+    function signUpUser() {
+      const email = document.getElementById("email").value;
+      const password = document.getElementById("password").value;
+      const username = document.getElementById("UserName").value;
+      const phoneNum = document.getElementById("phoneNum").value;
+      if (
+        !email ||
+        !password ||
+        !username ||
+        !phoneNum ||
+        phoneNum.length != 10
+      ) {
+        alert(`Please enter the filleds.`);
+      } else {
+        createUserWithEmailAndPassword(auth, email, password)
+          .then((userCredential) => {
+            const user = userCredential.user;
+            console.log(user.uid);
+            sendEmailVerification(auth.currentUser)
+              .then(() => {
+                alert(
+                  "Verification email sent. Please verify within 30 seconds."
+                );
+                let verificationTimer = setInterval(() => {
+                  if (user) {
+                    user.reload().then(async () => {
+                      if (user.emailVerified) {
+                        const userData = {
+                          email: email,
+                          phoneNum: phoneNum,
+                          userName: username,
+                        };
+                        await setDoc(doc(db, "users", user.uid), userData);
+                        localStorage.setItem("userUID", user.uid);
+                        clearInterval(verificationTimer);
+                        window.location.href = "index.html";
+                      } else {
+                        console.log("Email not verified yet.");
+                      }
+                    });
+                  }
+                }, 1000);
+                setTimeout(() => {
+                  clearInterval(verificationTimer);
+                  if (!user.emailVerified) {
+                    deleteUser(user)
+                      .then(() => {
+                        alert("User deleted due to unverified email.");
+                        window.location.href = "signUp.html";
+                      })
+                      .catch((error) => {
+                        alert(`Error deleting user: ${error.message}`);
+                      });
+                  }
+                }, 30000);
+              })
+              .catch((error) => {
+                alert(`Error sending verification email! create account again`);
+              });
+          })
+          .catch((error) => {
+            alert(`User already Exists!`);
+          });
+      }
+    }
+    window.onload = function () {
+      const userUID = localStorage.getItem("userUID");
+      if (userUID) {
+        window.location.href = "index.html";
+      }
+    };
+    const loginBtn = document.getElementById("loginBtn");
+    loginBtn.addEventListener("click", signUpUser);
+    function handleKeyPress(event) {
+      if (event.key === "Enter") {
+        event.preventDefault();
+        signUpUser();
+      }
+    }
+    passwordInput.addEventListener("keypress", handleKeyPress);
+  </script>
+  <script>
+    const passwordToggle = document.querySelector("#toggle-hide");
+    passwordToggle.addEventListener("click", togglePassword);
+    function togglePassword()
+    {
+      passwordToggle.classList.toggle("bxs-show");
+      const inputField = document.querySelector("#password");
+      if (inputField.type === "password") {
+        inputField.type = "text";}
+        else{
+          inputField.type = "password";
+        }
+    }
+  </script>
+</body>
+
+</html>
