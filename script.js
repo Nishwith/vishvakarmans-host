@@ -8,11 +8,11 @@ window.onload = () => {
 };
 
 
-const logout = document.querySelector('#logout');
+/* const logout = document.querySelector('#logout');
 logout.addEventListener('click', () => {
     window.location.href = "login.html";
     localStorage.removeItem("userUID");
-})
+}) */
 
 const menuIcon = document.querySelector('#menu-icon');
 const navBar = document.querySelector('.navbar');
